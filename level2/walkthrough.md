@@ -5,8 +5,8 @@ $> ls -la
 [...]
 
 $> ./level2
-test
-test
+input: test
+output: test
 
 # program asks for input and shows it back
 ```
@@ -40,18 +40,18 @@ $> gdb level2
 (gdb) set disassembly-flavor intel
 (gdb) disas p
     [...]
-    0x080484fb <+39>:    and    eax,0xb0000000
+    0x080484fb <+39>:    and    eax,0xb0000000          #1
     0x08048500 <+44>:    cmp    eax,0xb0000000
     0x08048505 <+49>:    jne    0x8048527 <p+83>
-    [...]
+        [...]
     0x08048522 <+78>:    call   0x80483d0 <_exit@plt>
     [...]
-    0x08048538 <+100>:   call   0x80483e0 <strdup@plt>
+    0x08048538 <+100>:   call   0x80483e0 <strdup@plt>  
     [...]
 
-# a manual protector is used to protect the stack (0xb...) from overflow
-# so we can't stock the shellcode in the stack
-# but we can use heap or the address where eax is called to insert the shellcode .
+#1: a manual protector is used to protect the stack (0xb...) from overflow
+#   so we can't stock the shellcode in the stack
+#2: but we can use heap or the address where eax is called to insert the shellcode .
 
 $> gdb level2
 (gdb) r
