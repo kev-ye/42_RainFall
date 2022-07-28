@@ -13,5 +13,5 @@ int main(void) {
     char s[76];
   
     gets(s);
-    return;
+    return 0;
 }

@@ -6,12 +6,21 @@ $> ls -la
 
 $> ./level1
 input: test
-$>
 
 # program only asks for input and nothing happens
 ```
 
 ```shell
+$> checksec --file level1
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
+No RELRO        No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   level1
+
+# RELRO     : Address randomization
+# CANARY    : stack overflow protection
+# NX        : Data Execution Prevention.
+# PIE       : code address randomization
+# Here we have no RELRO, no CANARY, no NX and no PIE to execute the program.
+
 $> gdb level1
 (gdb) set disassembly-flavor intel
 (gdb) disas main

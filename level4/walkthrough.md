@@ -5,7 +5,7 @@ $> ls -la
 [...]
 
 $> ./level4
-input: test
+input:  test
 output: test
 
 # program asks for input and shows it back
@@ -60,7 +60,7 @@ And change the value of m to 0x1025544 (16930116).
 
 ```shell
 $> ./level4
-input: aaaa %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p
+input:  aaaa %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p
 output: aaaa [...] 0x61616161 [...]
 
 # the offset value is at the 12th position.

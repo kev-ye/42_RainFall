@@ -11,7 +11,7 @@ typedef struct s_struct {
     char    *s;
 } t_struct;
 
-static char c[100];
+static char c[68];
 
 void    m(void) {
     time_t  t;

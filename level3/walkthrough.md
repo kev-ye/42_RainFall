@@ -5,7 +5,7 @@ $> ls -la
 [...]
 
 $> ./level3
-input: test
+input:  test
 output: test
 
 # program asks for input and shows it back
@@ -67,7 +67,7 @@ But we can use printf() vulnerability.
 
 ```shell
 $> ./level3
-input: aaaa %p %p %p %p %p %p                                               #1
+input:  aaaa %p %p %p %p %p %p                                               #1
 output: aaaa 0x200 0xb7fd1ac0 0xb7ff37d0 0x61616161 0x20702520 0x25207025   #2
 
 # printf() vulnerability: Use of Externally-Controlled Format String (CWE-134).

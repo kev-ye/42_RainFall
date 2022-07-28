@@ -5,7 +5,7 @@ $> ls -la
 [...]
 
 $> ./level2
-input: test
+input:  test
 output: test
 
 # program asks for input and shows it back

@@ -23,5 +23,5 @@ void    v(void) {
 
 int main(void) {
     v();
-    return;
+    return 0;
 }
